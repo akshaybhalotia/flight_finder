@@ -49,9 +49,9 @@ end
 group :development, :test do
   gem 'rspec-rails'
 
-  gem 'pry-rails'
+  gem 'capybara'
 
-  gem 'jasmine-rails'
+  gem 'pry-rails'
 end
 
 gem 'rails_12factor', group: :production

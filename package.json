@@ -1,0 +1,31 @@
+{
+  "name": "flight_finder",
+  "version": "1.0.0",
+  "description": "Find flights using Rails (irony!)",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://akshaybhalotia@github.com/akshaybhalotia/flight_finder.git"
+  },
+  "author": "Akshay Bhalotia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akshaybhalotia/flight_finder/issues"
+  },
+  "homepage": "https://github.com/akshaybhalotia/flight_finder#readme",
+  "dependencies": {
+    "jasmine": "^2.4.1",
+    "jasmine-jquery": "^2.1.1",
+    "jquery": "^2.2.0",
+    "karma": "^0.13.19",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.6",
+    "karma-jasmine-jquery": "^0.1.1",
+    "karma-jasmine-spec-runner-reporter": "^0.1.3",
+    "karma-jquery-new": "^0.1.1"
+  }
+}

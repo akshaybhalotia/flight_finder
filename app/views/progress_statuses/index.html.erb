@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Progress Statuses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Percent</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @progress_statuses.each do |progress_status| %>
+      <tr>
+        <td><%= progress_status.percent %></td>
+        <td><%= link_to 'Show', progress_status %></td>
+        <td><%= link_to 'Edit', edit_progress_status_path(progress_status) %></td>
+        <td><%= link_to 'Destroy', progress_status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Progress status', new_progress_status_path %>
