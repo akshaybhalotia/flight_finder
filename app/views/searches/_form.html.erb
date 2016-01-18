@@ -1,37 +1,28 @@
-<%= form_tag searching_path, method: :post do %>
-  <% if @search.errors.any? %>
-    <div id="error_explanation">
-    <h2><%= pluralize(@search.errors.count, "error") %> prohibited this search from being saved:</h2>
-  
-    <ul>
-      <% @search.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-      <% end %>
-    </ul>
-    </div>
-  <% end %>
-  <div class="field">
+<div class="container">
+<%= form_tag searching_path, method: :post, class: 'form' do %>
+  <div class="form-group">
     <%= label_tag :from_location %><br>
-    <%= text_field_tag :from_location %>
+    <%= select_tag :from_location, options_for_select(Search::LOCATIONS, ""), class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= label_tag :to_location %><br>
-    <%= text_field_tag :to_location %>
+    <%= select_tag :to_location, options_for_select(Search::LOCATIONS, ""), class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= label_tag :date_of_journey %><br>
     <div class="input-group date">
       <input type="text" class="form-control" id="date_of_journey" name="date_of_journey"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
     </div>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= label_tag :one_way %><br>
-    <%= check_box_tag :one_way %>
+    <%= check_box_tag :one_way, class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= submit_tag %>
+  <div class="form-group">
+    <%= submit_tag 'Search', class: 'btn btn-primary' %>
   </div>
-<% end %>
+  <% end %>
+  </div>
 <script>
       $('.input-group.date').datepicker({
         startDate: "today",

@@ -1,3 +1,4 @@
+<div class="container">
 <% unless @search_result.nil? %>
 <%= render @search_result %>
 <% else %>
@@ -7,3 +8,4 @@
 <% end %>
 
 <%= button_to 'Back', search_path, method: :get, class: 'btn btn-warning' %>
+</div>
