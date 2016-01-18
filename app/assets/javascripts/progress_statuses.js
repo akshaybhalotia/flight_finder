@@ -1,8 +1,9 @@
-function ProgressBar (selector, progress_url, show_url) {
+function ProgressBar (selector, progress_url, show_url, progress_id) {
 	var element = $(selector);
 	var bar = element.find('.progress-bar');
 	var progress = progress_url;
 	var show = show_url;
+  var progress_bar_id = progress_id;
 	var ping_time = parseInt(element.data('ping-time'));
 	var timeout_call;
 	
@@ -10,6 +11,9 @@ function ProgressBar (selector, progress_url, show_url) {
 		clearTimeout(timeout_call);
 		$.ajax({
 			url: show_url,
+      data: {
+        "search_id": progress_bar_id
+      },
 			dataType: 'html',
 			method: 'POST',
 			success: function(data) {
@@ -22,6 +26,9 @@ function ProgressBar (selector, progress_url, show_url) {
 	function start() {
 		$.ajax({
 			url: progress_url,
+      data: {
+        "id": progress_bar_id
+      },
 			dataType: 'json',
 			method: 'POST',
 			context: this,

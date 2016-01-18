@@ -43,18 +43,27 @@ describe("A progress bar", function() {
 			expect(jasmine.Ajax.requests.mostRecent().url).toBe('y');
 		});
 
-		it("shows result", function() {
-			jasmine.Ajax.requests.mostRecent().respondWith({
-				"status": 200,
-				"contentType": 'json',
-				"responseText": '{"percent": "100"}'
+		describe("shows result", function() {
+
+			beforeEach(function() {
+				console.log("before"+jasmine.Ajax.requests);
+				jasmine.Ajax.requests.mostRecent().respondWith({
+					"status": 200,
+					"contentType": 'json',
+					"responseText": '{"percent": "100"}'
+				});
+				console.log("after"+jasmine.Ajax.requests.mostRecent());
 			});
-			jasmine.Ajax.requests.mostRecent().respondWith({
-				"status": 200,
-				"contentType": 'html',
-				"responseText": '<div>response</div>'
+
+			it("on completion", function() {
+				console.log("inside"+jasmine.Ajax.requests);
+				jasmine.Ajax.requests.mostRecent().respondWith({
+					"status": 200,
+					"contentType": 'html',
+					"responseText": '<div>response</div>'
+				});
+				expect($('body').html()).toContain('response');
 			});
-			expect($('body').html()).toContain('response');
 		});
 	});
 });

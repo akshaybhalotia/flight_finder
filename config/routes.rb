@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   #resources :searches
   #resources :flights
 
-  post 'progress_statuses/show/:id', as: 'progress', to: 'progress_statuses#show'
+  post 'progress_statuses/show', as: 'progress', to: 'progress_statuses#show'
   
   post 'search_results/show', as: 'show'
   post 'search_results', as: 'searching', to: 'search_results#searching'

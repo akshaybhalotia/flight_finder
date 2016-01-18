@@ -4,7 +4,7 @@ module JobQueue
   extend ActiveSupport::Concern
   
   def find_queue
-    @queue = @queue || Queue.new
+    @queue ||= Queue.new
     Thread.new do
       while current_progress = @queue.pop(false)
         10.times do |i|

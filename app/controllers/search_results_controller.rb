@@ -1,7 +1,6 @@
 class SearchResultsController < ApplicationController
   include JobQueue
-  before_action :filter_params, only: :searching
-  before_action :find_queue, only: :searching
+  before_action :filter_params, :find_queue, only: :searching
   
   def searching
     create_search
@@ -10,14 +9,13 @@ class SearchResultsController < ApplicationController
       render 'search_errors'
     else
       @progress_status = ProgressStatus.create!(percent: 0)
-      session[:search_params] = @search
-      session[:progress_id] = @progress_status.id
+      session["#{@progress_status.id}"] = @search
       @queue.push(@progress_status)
     end
   end
 
   def show
-    search = session[:search_params]
+    search = session["#{params[:search_id]}"]
     @search_result = Array.new
     @search_result = Flight.find_by( destination: search["to_location"], origin: search["from_location"], date_of_journey: search["date_of_journey"])
   end
