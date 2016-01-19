@@ -1,5 +1,5 @@
 class ProgressStatusesController < ApplicationController
-  before_action :set_progress_status, only: [:show, :edit, :update, :destroy]
+  before_action :set_progress_status, only: [:edit, :update, :destroy]
 
   # GET /progress_statuses
   # GET /progress_statuses.json
@@ -10,7 +10,15 @@ class ProgressStatusesController < ApplicationController
   # GET /progress_statuses/1
   # GET /progress_statuses/1.json
   def show
-    @progress_status = ProgressStatus.find(params[:id])
+    thr = ObjectSpace._id2ref(params[:id].to_i)
+    
+    if !thr.alive?
+      @progress_status = ProgressStatus.new
+      @progress_status.percent = 100
+    else
+      @progress_status = thr["progress"]
+    end
+    
     render json: @progress_status
   end
 

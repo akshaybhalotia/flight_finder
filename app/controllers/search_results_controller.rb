@@ -1,6 +1,5 @@
 class SearchResultsController < ApplicationController
-  include JobQueue
-  before_action :filter_params, :find_queue, only: :searching
+  before_action :filter_params, only: :searching
   
   def searching
     create_search
@@ -8,9 +7,17 @@ class SearchResultsController < ApplicationController
     if @search.errors.any?
       render 'search_errors'
     else
-      @progress_status = ProgressStatus.create!(percent: 0)
-      session["#{@progress_status.id}"] = @search
-      @queue.push(@progress_status)
+      progress_status = ProgressStatus.new
+      thr = Thread.new(progress_status) do |current_progress|
+        Thread.current["progress"] = current_progress
+        10.times do |i|
+          sleep(1)
+          current_progress.percent = (i+1) * 10
+          Thread.current["progress"] = current_progress
+        end
+      end
+      @index = thr.object_id
+      session["#{@index}"] = @search
     end
   end
 
