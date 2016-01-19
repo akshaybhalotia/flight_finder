@@ -61,3 +61,5 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
 gem 'bootstrap-datepicker-rails'
+
+gem "codeclimate-test-reporter", group: :test, require: nil
