@@ -11,13 +11,7 @@ class ProgressStatusesController < ApplicationController
   # GET /progress_statuses/1.json
   def show
     thr = ObjectSpace._id2ref(params[:id].to_i)
-    
-    if !thr.alive?
-      @progress_status = ProgressStatus.new
-      @progress_status.percent = 100
-    else
-      @progress_status = thr["progress"]
-    end
+    @progress_status = thr["progress"]
     
     render json: @progress_status
   end

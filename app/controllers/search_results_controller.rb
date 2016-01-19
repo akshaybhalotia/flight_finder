@@ -23,8 +23,10 @@ class SearchResultsController < ApplicationController
 
   def show
     search = session["#{params[:search_id]}"]
-    @search_result = Array.new
-    @search_result = Flight.find_by( destination: search["to_location"], origin: search["from_location"], date_of_journey: search["date_of_journey"])
+    
+    @search_result = Flight.find_by( destination: search["to_location"],
+      origin: search["from_location"],
+      date_of_journey: search["date_of_journey"])
   end
 
   private
@@ -33,7 +35,8 @@ class SearchResultsController < ApplicationController
     @search.from_location = params[:from_location]
     @search.to_location = params[:to_location]
     begin
-      @search.date_of_journey = Date.strptime(params[:date_of_journey], '%d/%m/%Y')
+      @search.date_of_journey =
+        Date.strptime(params[:date_of_journey], '%d/%m/%Y')
     rescue ArgumentError
       @search.errors[:date_of_journey] << 'Invalid date'
     end

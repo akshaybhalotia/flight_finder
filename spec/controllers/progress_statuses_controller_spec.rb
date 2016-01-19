@@ -19,33 +19,40 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ProgressStatusesController, type: :controller do
-
-  # This should return the minimal set of attributes required to create a valid
-  # ProgressStatus. As you add validations to ProgressStatus, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    {
-      percent: 0
-    }
-  }
-
-  let(:invalid_attributes) {
-    {
-      percent: 'percent'
-    }
-  }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # ProgressStatusesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
+  
   describe "POST #show" do
-    it "assigns the requested progress status as @progress_status" do
-      progress_status = ProgressStatus.create! valid_attributes
-      post :show, {:id => progress_status.to_param}, valid_session
-      expect(assigns(:progress_status)).to eq(progress_status)
+
+    before do
+      progress_status = ProgressStatus.new(percent: 0)
+      @thr = Thread.new(progress_status) do |current_progress|
+        Thread.current["progress"] = current_progress
+        10.times do |i|
+          sleep(1)
+          current_progress.percent = (i+1) * 10
+          Thread.current["progress"] = current_progress
+        end
+      end
+    end
+    
+    context "if thread if still working" do
+      
+      it "assigns the requested progress status as @progress_status" do
+        post :show, { :id => @thr.object_id }
+        
+        expect(assigns(:progress_status)).to eq(@thr["progress"])
+      end
+    end
+
+    context "if thread has finished" do
+
+      it "assigns the requested progress status with 100 percent" do
+        @thr.join
+        
+        post :show, { :id => @thr.object_id }
+        
+        expect(assigns(:progress_status).percent).to eq(100)
+      end
     end
   end
-
+  
 end

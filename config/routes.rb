@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  #resources :progress_statuses
-  #resources :searches
-  #resources :flights
 
   post 'progress_statuses/show', as: 'progress', to: 'progress_statuses#show'
   
