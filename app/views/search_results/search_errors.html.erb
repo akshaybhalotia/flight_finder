@@ -1,14 +1,14 @@
-<div class="container">
-<% if @search.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@search.errors.count, "error") %> in search:</h2>
-
-      <ul>
-      <% @search.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<div class="top-space">
+    <% if @search.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@search.errors.count, "error") %> in search:</h2>
+            
+            <ul class="list-group">
+                <% @search.errors.full_messages.each do |message| %>
+                    <li class="list-group-item"><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
     <% end %>
     <%= link_to 'Back', :back %>
 </div>

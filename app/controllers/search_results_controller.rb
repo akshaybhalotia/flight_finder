@@ -22,7 +22,7 @@ class SearchResultsController < ApplicationController
   end
 
   def show
-    search = session["#{params[:search_id]}"]
+    search = session.delete("#{params[:search_id]}")
     
     @search_result = Flight.find_by( destination: search["to_location"],
       origin: search["from_location"],

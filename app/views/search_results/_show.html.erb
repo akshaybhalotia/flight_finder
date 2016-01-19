@@ -1,11 +1,11 @@
-<div class="container">
-<% unless @search_result.nil? %>
-<%= render @search_result %>
-<% else %>
-<div>
-  <h1>No results found for your search</h1>
-</div>
-<% end %>
-
-<%= button_to 'Back', search_path, method: :get, class: 'btn btn-warning' %>
-</div>
+<div class="container top-space">
+    <% unless @search_result.nil? %>
+        <%= render @search_result %>
+    <% else %>
+        <div>
+            <h1>No results found for your search</h1>
+        </div>
+    <% end %>
+    
+    <%= button_to 'Back', search_path, method: :get, class: 'btn btn-warning' %>
+</div >
